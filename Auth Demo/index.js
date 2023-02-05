@@ -29,6 +29,7 @@ app.get("/", (req, res) => {
     res.send("this is a Home Page!");
 });
 
+//=============== register ========================
 app.get("/register", (req, res) => {
     res.render("register");
 });
@@ -48,6 +49,7 @@ app.post("/register", async (req, res) => {
     res.redirect("/secret");
 });
 
+//=============== login ========================
 app.get("/login", (req, res) => {
     res.render("login");
 });
@@ -62,9 +64,16 @@ app.post("/login", async (req, res) => {
     } else res.redirect("/login");
 });
 
+//=============== logout ========================
+app.post("/logout", (req, res) => {
+    // req.session.user_id = null;
+    req.session.destroy();
+    res.redirect("/login");
+});
+
 app.get("/secret", (req, res) => {
     if (!req.session.user_id) res.redirect("/login");
-    else res.send("this is a secret route, you can't see me HAHAHA");
+    else res.render("secret");
 });
 
 app.listen(3000, () => {
