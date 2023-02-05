@@ -41,6 +41,18 @@ app.post("/register", async (req, res) => {
     res.redirect("/");
 });
 
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    const user = await User.findOne({ username });
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (validPassword) res.redirect("/");
+    else res.send("invalid username or password, Try Again");
+});
+
 app.get("/secret", (req, res) => {
     res.send("this is a secret route, you can't see me HAHAHA");
 });
