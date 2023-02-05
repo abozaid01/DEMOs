@@ -64,7 +64,7 @@ app.post("/login", async (req, res) => {
 
 app.get("/secret", (req, res) => {
     if (!req.session.user_id) res.redirect("/login");
-    res.send("this is a secret route, you can't see me HAHAHA");
+    else res.send("this is a secret route, you can't see me HAHAHA");
 });
 
 app.listen(3000, () => {
