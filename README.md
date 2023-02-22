@@ -1,2 +1,3 @@
 # DEMOs
-A repository for implementing everything I've just learnt
+
+A repository for implementing some DEMOs
