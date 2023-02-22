@@ -112,3 +112,12 @@ app.get("/user/dashboard", checkNotAuth, (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server is running on Port: ${PORT}`);
 });
+
+//=============== logout ========================
+app.get("/user/logout", (req, res, next) => {
+    req.logout((err) => {
+        if (err) return next(err);
+    });
+    req.flash("success_msg", "You have logged out");
+    res.redirect("/user/login");
+});
