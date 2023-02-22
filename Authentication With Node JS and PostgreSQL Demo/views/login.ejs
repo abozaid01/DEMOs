@@ -10,6 +10,12 @@
 <body>
     <h1>Login</h1>
 
+    <ul>
+        <% if (messages.success_msg) { %>
+            <li><%= messages.success_msg %></li>
+        <% } %>
+    </ul>
+
     <form action="/user/login" method="POST">
         <div>
             <label for="email">Enter email: </label>
