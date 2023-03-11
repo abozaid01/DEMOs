@@ -58,4 +58,47 @@ router.post(
     }
 );
 
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+
+    let user = users.find((user) => {
+        return user.email === email;
+    });
+
+    if (!user) {
+        return res.status(400).json({
+            errors: [
+                {
+                    msg: "username OR password not correct",
+                },
+            ],
+        });
+    }
+
+    let isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+        return res.status(400).json({
+            errors: [
+                {
+                    msg: "username OR password not correct",
+                },
+            ],
+        });
+    }
+
+    const token = await jwt.sign(
+        //create token
+        {
+            email, //not good idea to send the email to user
+        },
+        "ahdlkjhadfhalkfhalkfha", //secret  //.env
+        {
+            expiresIn: 360000,
+        }
+    );
+    res.json(token);
+});
+
 module.exports = router;
+console.log(users[0].password);
