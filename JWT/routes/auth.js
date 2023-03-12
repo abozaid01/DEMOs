@@ -101,4 +101,3 @@ router.post("/login", async (req, res) => {
 });
 
 module.exports = router;
-console.log(users[0].password);
