@@ -1,0 +1,159 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <!-- Definition for customer table -->
+  <xs:element name="customer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="customer_id" type="xs:int" />
+        <xs:element name="first_name" type="xs:string" />
+        <xs:element name="last_name" type="xs:string" />
+        <xs:element name="age" type="xs:int" />
+        <xs:element name="city" type="xs:string" />
+        <xs:element name="street" type="xs:string" />
+        <xs:element name="building" type="xs:string" />
+        <xs:element name="apartment" type="xs:string" />
+        <xs:element name="phone" type="xs:string" />
+        <xs:element name="email" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for orders table -->
+  <xs:element name="orders">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="order_id" type="xs:int" />
+        <xs:element name="date" type="xs:date" />
+        <xs:element name="delivered" type="xs:boolean" />
+        <xs:element name="customer_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for canceled_order table -->
+  <xs:element name="canceled_order">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="order_id" type="xs:int" />
+        <xs:element name="cancel_date" type="xs:date" />
+        <xs:element name="canceled" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for refunded_order table -->
+  <xs:element name="refunded_order">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="order_id" type="xs:int" />
+        <xs:element name="refund_date" type="xs:date" />
+        <xs:element name="refunded" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for category table -->
+  <xs:element name="category">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="category_id" type="xs:int" />
+        <xs:element name="name" type="xs:string" />
+        <xs:element name="description" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for payment table -->
+  <xs:element name="payment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="payment_id" type="xs:int" />
+        <xs:element name="accepted" type="xs:boolean" />
+        <xs:element name="amount" type="xs:int" />
+        <xs:element name="order_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for bank_transfer_payment table -->
+  <xs:element name="bank_transfer_payment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="payment_id" type="xs:int" />
+        <xs:element name="account_number" type="xs:int" />
+        <xs:element name="routing_number" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for credit_card_payment table -->
+  <xs:element name="credit_card_payment">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="payment_id" type="xs:int" />
+        <xs:element name="credit_card_number" type="xs:int" />
+        <xs:element name="expiration_date" type="xs:date" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for cash table -->
+  <xs:element name="cash">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="payment_id" type="xs:int" />
+        <xs:element name="amount_received" type="xs:int" />
+        <xs:element name="amount_returned" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for product table -->
+  <xs:element name="product">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="product_id" type="xs:int" />
+        <xs:element name="name" type="xs:string" />
+        <xs:element name="description" type="xs:string" />
+        <xs:element name="price" type="xs:decimal" />
+        <xs:element name="category_id" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Definition for shopping_cart table -->
+  <xs:element name="shopping_cart">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="cart_id" type="xs:int" />
+        <xs:element name="customer_id" type="xs:int" />
+        <xs:element name="date_created" type="xs:date" />
+        <xs:element name="date_closed" type="xs:date" />
+        <xs:element name="total_price" type="xs:decimal" />
+        <xs:element name="has_items">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="item" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="product_id" type="xs:int" />
+                    <xs:element name="quantity" type="xs:int" />
+                  </xs:sequence>
+                </xs:complexType>
+                <xs:key name="itemPK">
+                  <xs:selector xpath="item" />
+                  <xs:field xpath="product_id" />
+                </xs:key>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+          <xs:key name="has_itemsPK">
+            <xs:selector xpath="has_items" />
+            <xs:field xpath="item/product_id" />
+          </xs:key>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
